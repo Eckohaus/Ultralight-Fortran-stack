@@ -19,19 +19,14 @@
 </div>
 
 <script>
-document.getElementById('calcForm').addEventListener('submit', async (e) => {
+document.getElementById('calcForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    const mass = document.getElementById('massInput').value;
-
-    const response = await fetch('/api/calculate', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({mass: mass})
-    });
-
-    const data = await response.json();
-    document.getElementById('result').innerHTML = `<h4>Energy: ${data.energy} J</h4>`;
+    const mass = parseFloat(document.getElementById('massInput').value);
+    const c = 299792458.0;
+    const energy = mass * c * c;
+    document.getElementById('result').innerHTML = `<h4>Energy: ${energy} J</h4>`;
 });
 </script>
+
 </body>
 </html>
