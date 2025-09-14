@@ -8,13 +8,24 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Deploy frontend
+      # Optional: compile Fortran or run Python logic
+      - name: Compile Fortran (optional)
+        run: |
+          gfortran fortran/ultralight.f90 -o fortran/ultralight || echo "Skipped"
+
+      - name: Precompute results (optional)
+        run: |
+          python backend/ultralight.py || echo "Skipped"
+
+      # Deploy frontend to gh-pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend
-          publish_branch: main   # deploy frontend files to root of main
+          publish_branch: gh-pages   # <-- publish to gh-pages branch
