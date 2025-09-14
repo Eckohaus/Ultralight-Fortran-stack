@@ -1,2 +1,1 @@
-Flask==2.3.2
-pymongo==4.5.0
+# Empty for now; included if Python dependencies needed in Actions
