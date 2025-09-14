@@ -4,19 +4,19 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-# MongoDB setup
-client = MongoClient("mongodb://localhost:27017/")
+# MongoDB setup (replace <username> and <password>)
+client = MongoClient("mongodb+srv://<username>:<password>@cluster0.mongodb.net/fortran_db")
 db = client.fortran_db
 collection = db.results
 
 @app.route('/api/calculate', methods=['POST'])
 def calculate():
     data = request.get_json()
-    mass = float(data['mass'])
+    mass = str(data['mass'])
 
     # Call Fortran executable
     process = subprocess.Popen(
-        ['./fortran/ultralight', str(mass)],
+        ['./fortran/ultralight', mass],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
@@ -25,11 +25,10 @@ def calculate():
     if stderr:
         return jsonify({'error': stderr.decode()}), 500
 
-    # Extract energy from Fortran output
     energy = float(stdout.decode().strip().split()[-1])
 
-    # Store in MongoDB
-    collection.insert_one({'mass': mass, 'energy': energy})
+    # Store input/output in MongoDB
+    collection.insert_one({'mass': float(mass), 'energy': energy})
 
     return jsonify({'energy': energy})
 
