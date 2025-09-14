@@ -1,34 +1,31 @@
+
 from flask import Flask, request, jsonify
-import subprocess
-from pymongo import MongoClient
+import json
+from ultralight import compute_energy
+import os
 
 app = Flask(__name__)
+DATA_FILE = os.path.join(os.path.dirname(__file__), '../data/results.json')
 
-# MongoDB setup (replace <username> and <password>)
-client = MongoClient("mongodb+srv://<username>:<password>@cluster0.mongodb.net/fortran_db")
-db = client.fortran_db
-collection = db.results
+# Ensure results.json exists
+if not os.path.exists(DATA_FILE):
+    with open(DATA_FILE, 'w') as f:
+        json.dump([], f)
 
 @app.route('/api/calculate', methods=['POST'])
 def calculate():
     data = request.get_json()
-    mass = str(data['mass'])
+    mass = float(data['mass'])
+    energy = compute_energy(mass)
 
-    # Call Fortran executable
-    process = subprocess.Popen(
-        ['./fortran/ultralight', mass],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    )
-    stdout, stderr = process.communicate()
+    # Load current results
+    with open(DATA_FILE, 'r') as f:
+        results = json.load(f)
 
-    if stderr:
-        return jsonify({'error': stderr.decode()}), 500
-
-    energy = float(stdout.decode().strip().split()[-1])
-
-    # Store input/output in MongoDB
-    collection.insert_one({'mass': float(mass), 'energy': energy})
+    # Append new result
+    results.append({'mass': mass, 'energy': energy})
+    with open(DATA_FILE, 'w') as f:
+        json.dump(results, f, indent=2)
 
     return jsonify({'energy': energy})
 
