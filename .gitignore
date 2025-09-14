@@ -16,8 +16,5 @@ ultralight
 # OS / IDE
 .DS_Store
 *.swp
-*.vscode/
+.vscode/
 *.sublime-workspace
-
-# Data
-data/results.json
