@@ -1,11 +1,16 @@
 # Ultralight Fortran Stack - Frontend Calculator
 
+**Short Description:** A lightweight frontend calculator deployed via GitHub Pages; Fortran integration planned.
+
+---
+
 ## Overview
 
 This repository hosts a **simple HTML5 + Bootstrap calculator** deployed via **GitHub Pages**.  
 At this stage, the calculator is purely **client-side JavaScript**, and **no Fortran runtime is executed**.  
 
 The project demonstrates a **fully contained GitHub workflow**:
+
 - Frontend code lives in the `frontend/` folder
 - Deployment is automated via **GitHub Actions**
 - The `gh-pages` branch is automatically created and updated
@@ -15,15 +20,24 @@ The project demonstrates a **fully contained GitHub workflow**:
 
 ## File Structure
 
-frontend/ # HTML, CSS, JS calculator
-backend/ # Reserved for future Fortran API or backend
-fortran/ # Reserved for Fortran source code
-.github/
-└── workflows/
-└── deploy.yml # GitHub Actions workflow to deploy frontend to gh-pages
-nginx/ # Reserved for future server deployment
-README.md
-LICENSE
+```text
+ultralight-fortran-stack/
+│
+├── frontend/
+│   └── index.html           # Bootstrap UI
+│
+├── backend/
+│   ├── app.py               # Flask backend server
+│   └── requirements.txt     # Python dependencies
+│
+├── fortran/
+│   └── ultralight.f90       # Your Fortran code (precompiled)
+│
+├── nginx/
+│   └── nginx.conf           # Optional Nginx config
+│
+└── README.md
+
 
 
 ---
