@@ -34,7 +34,7 @@ ultralight-fortran-stack/
 │   └── ultralight.f90       # Placeholder Fortran code (integration pending)
 │
 ├── nginx/
-│   └── nginx.conf           # Optional Nginx config
+│   └── nginx.conf           # Placeholder for future server deployment (currently inactive)
 │
 └── README.md
 ```
