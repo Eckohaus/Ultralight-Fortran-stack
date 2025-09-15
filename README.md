@@ -31,7 +31,7 @@ ultralight-fortran-stack/
 │   └── requirements.txt     # Python dependencies
 │
 ├── fortran/
-│   └── ultralight.f90       # Your Fortran code (precompiled)
+│   └── ultralight.f90       # Placeholder Fortran code (integration pending)
 │
 ├── nginx/
 │   └── nginx.conf           # Optional Nginx config
