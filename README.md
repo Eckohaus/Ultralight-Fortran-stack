@@ -38,8 +38,6 @@ ultralight-fortran-stack/
 │
 └── README.md
 
-
-
 ---
 
 ## GitHub Actions Deployment
