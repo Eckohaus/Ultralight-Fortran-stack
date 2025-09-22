@@ -96,4 +96,4 @@ The deployment workflow (`.github/workflows/deploy.yml`) automatically:
 
 ---
 
-**License:** [MIT](LICENSE)
+**License:** [Creative Commons](LICENSE)
